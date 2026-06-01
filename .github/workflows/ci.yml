@@ -19,6 +19,8 @@ jobs:
         with:
           python-version: '3.13'
       - run: npm ci
+      - name: Install bot-ai (runtime + pytest)
+        run: python3 -m pip install -e "./services/bot-ai[dev]"
       - run: npm run typecheck
       - run: npx vitest run --config vitest.config.ts --reporter=verbose
       - run: npm run test:bot-ai
