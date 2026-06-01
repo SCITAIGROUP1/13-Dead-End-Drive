@@ -85,21 +85,16 @@ export function pickHeuristicAction(
       case 'ROLL_DICE':
         score = 100;
         break;
-      case 'CHOOSE_MOVEMENT_PLAN': {
-        const plan =
-          'payload' in action.event
-            ? (action.event.payload as { plan: string }).plan
-            : 'SPLIT';
-        score = plan === 'COMBINED' ? 5 : 8;
+      case 'CHOOSE_MOVEMENT_PLAN':
+        score = 12;
         break;
-      }
       case 'CHANGE_PORTRAIT': {
         const heir = maskedState.activePortrait.portraitStack[0];
-        score = heir !== undefined && botRooting.includes(heir) ? 25 : -5;
+        score = heir !== undefined && botRooting.includes(heir) ? 14 : 2;
         break;
       }
       case 'MOVE_PAWN':
-        score = scoreMoveAction(action, maskedState, botRooting, difficulty);
+        score = scoreMoveAction(action, maskedState, botRooting, difficulty) + 20;
         break;
       case 'PLAY_TRAP_CARD':
         score = scoreTrapPlay(action, maskedState, botRooting);

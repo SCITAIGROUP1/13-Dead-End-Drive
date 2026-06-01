@@ -42,6 +42,7 @@
 While **any** pawn is still on a dining chair:
 
 - Players may **only** move pawns **off** chairs (cannot move pawns already off-chair).
+- **Split dice only** — move one pawn die1 pips, then a different pawn die2 pips. **Combined** (die1 + die2 on one pawn) is **not** allowed until **all** pawns have left the chairs.
 - Pawns **cannot move through** chair cells.
 - Pawns **cannot land on** chair cells once they have left (no returning to the table ring).
 
@@ -77,7 +78,7 @@ Additionally: cannot land on **trap zones** while any pawn remains on red chairs
 
 | # | Condition | Winner |
 |---|-----------|--------|
-| 1 | Featured portrait guest reaches **`K1`** alive | Player holding that guest’s rooting card |
+| 1 | **Featured portrait** guest (not Aunt Agatha) reaches **`K1`** alive | Player who holds **that same guest’s** rooting card (visible or secret). Another guest at `K1` does not count. |
 | 2 | Only **one player** still has a living rooted guest in the mansion | That player |
 | 3 | Detective reaches the door (**10 steps**) | Player holding the **current portrait** guest’s rooting card (not Aunt Agatha) |
 

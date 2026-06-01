@@ -313,7 +313,6 @@ function InnerScene({
   const selectCharacter = useGameStore((s) => s.selectCharacter);
   const moveCharacter   = useGameStore((s) => s.moveCharacter);
   const clearTrapFired  = useGameStore((s) => s.clearTrapFired);
-
   const pulseRef           = useRef(0);
   const prevTrapFiredRef   = useRef<typeof lastTrapFired>(null);
   const [trapFxActive, setTrapFxActive] = useState(false);

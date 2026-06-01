@@ -17,7 +17,8 @@
 **Phase 4 — Client UI** (feature-complete for solo/local/online lobby)
 > Hybrid: solo/local client engine; online server-authoritative via Colyseus.
 
-**Next:** Supabase Auth JWT (`AUTH_REQUIRED=true`) + production deploy.
+**Next:** Supabase Auth JWT (`AUTH_REQUIRED=true`) + production deploy. **Docs:** [`docs/HOW_TO_PLAY.md`](../docs/HOW_TO_PLAY.md). **Proposed:** RFC 007 advanced rule engine (not implemented).
+
 
 **Architecture (RFC 006):** `@ded/*` packages, `GameSession` + `dispatchGameEvent`, `useUiStore` / `useGameStore` split, dependency-cruiser CI.
 

@@ -21,6 +21,7 @@ import { EngineError }                 from './EngineError.js';
 import { isTrapDrawCell, isTrapZoneCell } from './boardResolver.js';
 import { drawTrapCardFromDeck }         from './trapEvaluator.js';
 import { GRID_21X15_DINING_CHAIR_SET }  from './boardDefinition.js';
+import { anyAlivePawnOnDiningChair } from './chairPhase.js';
 
 function validateTrapApproach(
   path:  readonly CellId[],
@@ -134,7 +135,19 @@ export function moveCharacter(state: GameState, event: MovePawnEvent): GameState
     );
   }
 
-  // ── Guard 7: Verify pips matches die roll ──────────────────────────────────
+  // ── Guard 7: Combined dice only after the table is clear ───────────────────
+  if (
+    state.boardVersion === 'GRID_21X15' &&
+    anyCharOnChair &&
+    (usingCombinedDice || state.movementPlan === 'COMBINED')
+  ) {
+    throw new EngineError(
+      'INVALID_MOVE',
+      'Combined movement on one pawn is only allowed after all pawns have left the dining chairs.',
+    );
+  }
+
+  // ── Guard 8: Verify pips matches die roll ──────────────────────────────────
   let allowedPips: number;
   if (state.subPhase === 'FIRST_MOVE') {
     if (usingCombinedDice) {

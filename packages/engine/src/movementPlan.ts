@@ -4,6 +4,7 @@
 
 import type { GameState } from '@ded/types/game-state.js';
 import type { MovementPlan, PipCount } from '@ded/types/enums.js';
+import { anyAlivePawnOnDiningChair } from './chairPhase.js';
 import { EngineError } from './EngineError.js';
 
 function combinedPips(die1: number, die2: number): PipCount {
@@ -20,6 +21,12 @@ export function applyMovementPlan(state: GameState, plan: MovementPlan): GameSta
   }
   if (!state.lastDiceRoll) {
     throw new EngineError('INVALID_MOVE', 'Roll dice before choosing how to use them.');
+  }
+  if (plan === 'COMBINED' && anyAlivePawnOnDiningChair(state)) {
+    throw new EngineError(
+      'INVALID_MOVE',
+      'Combined movement on one pawn is only allowed after all pawns have left the dining chairs.',
+    );
   }
   if (state.movementPlan === plan) {
     return state;

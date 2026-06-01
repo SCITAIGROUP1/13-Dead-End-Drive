@@ -85,6 +85,10 @@ export function DicePanel({ gameState }: DicePanelProps) {
   const canPlanMove  =
     gameState?.subPhase === 'FIRST_MOVE' && gameState.movesUsedThisTurn === 0 && !!lastRoll;
   const combinedTotal = lastRoll ? lastRoll.die1 + lastRoll.die2 : 0;
+  const chairPhaseActive = Object.values(gameState.characters).some(
+    (c) => c.status === 'ALIVE' && c.isOnRedChair,
+  );
+  const combinedAllowed = canPlanMove && !chairPhaseActive;
 
   // Die values to display — show rolling placeholder faces while animating
   const d1Display = isRolling ? Math.ceil(Math.random() * 6) : (lastRoll?.die1 ?? 1);
@@ -174,11 +178,26 @@ export function DicePanel({ gameState }: DicePanelProps) {
               <span className="text-[9px] uppercase tracking-widest text-ghost-500 font-bold">
                 Use dice as
               </span>
+              {chairPhaseActive && (
+                <p className="text-[9px] leading-snug text-amber-200/90 font-sans">
+                  Clear the table first — split dice only until every pawn leaves the red chairs.
+                </p>
+              )}
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={() => chooseMovementPlan('COMBINED')}
-                  className={`flex-1 py-1.5 rounded-lg border text-[10px] font-bold tracking-wider cursor-pointer ${
+                  disabled={!combinedAllowed}
+                  title={
+                    chairPhaseActive
+                      ? 'Combined move unlocks after all pawns leave the dining chairs'
+                      : undefined
+                  }
+                  className={`flex-1 py-1.5 rounded-lg border text-[10px] font-bold tracking-wider ${
+                    combinedAllowed
+                      ? 'cursor-pointer'
+                      : 'cursor-not-allowed opacity-45'
+                  } ${
                     gameState.movementPlan === 'COMBINED'
                       ? 'border-amber-400/60 bg-amber-950/40 text-amber-100'
                       : 'border-slate-700 bg-slate-900/60 text-ghost-400 hover:bg-slate-800'

@@ -2,10 +2,12 @@
 
 import { describe, it, expect } from 'vitest';
 import { initializeGame } from '../../engine/gameInitializer.js';
+import { applyMovementPlan } from '../../engine/movementPlan.js';
+import { applyDiceRoll } from '../../engine/diceRoller.js';
 import { moveCharacter } from '../../engine/moveCharacter.js';
 import { drawTrapCardFromDeck } from '../../engine/trapEvaluator.js';
 import { GRID_21X15_RED_CHAIRS } from '../../engine/boardDefinition.js';
-import { CHARACTER_IDS } from '../../types/enums.js';
+import { CHARACTER_IDS, type MovementDie } from '../../types/enums.js';
 import { EngineError } from '../../engine/EngineError.js';
 import type { GameState } from '../../types/game-state.js';
 import type { MovePawnEvent } from '../../types/socket-events.js';
@@ -28,6 +30,23 @@ describe('GRID_21X15 movement & setup rules', () => {
       CHARACTER_IDS.map((id) => state.characters[id]!.position),
     );
     expect(occupiedChairs.size).toBe(12);
+  });
+
+  it('rejects combined movement plan while any pawn is still on a chair', () => {
+    let state = gridGame();
+    state = applyDiceRoll(state, {
+      die1: 3 as MovementDie,
+      die2: 4 as MovementDie,
+      isDoubles: false,
+      rolledBy: 'p1',
+      rolledAt: '2026-05-27T00:00:00Z',
+    });
+    expect(() => applyMovementPlan(state, 'COMBINED')).toThrow(EngineError);
+    try {
+      applyMovementPlan(state, 'COMBINED');
+    } catch (e) {
+      expect((e as EngineError).message).toMatch(/dining chairs/i);
+    }
   });
 
   it('forces players to move pawns off chairs before moving other pawns', () => {

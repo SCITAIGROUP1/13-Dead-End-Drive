@@ -452,8 +452,10 @@ Solo practice             → Solo
 
 ### Solo: Bots never move
 
-- Start `bot-ai` (`npm run dev:bot-ai` or `docker compose up bot-ai`).
-- Without it, heuristic fallback still runs—check estate log for bot errors.
+- **During your turn** (Mansion Control shows your name, you have dice/pips to spend): bots do **not** move pawns—that is expected. Finish your move; when `activePlayerId` is `player-bot-*`, `BotOrchestrator` auto-plays.
+- **Turn order strip** at the top of the HUD shows who is **playing** and **up next** (clockwise `turnOrder`). This is separate from the twelve red **pawn** dining chairs on the board.
+- Start `bot-ai` (`npm run dev:bot-ai` or `docker compose up bot-ai`) for Python decisions; without it, heuristic fallback still runs.
+- Check the estate event log for `Bot … is playing…`, bot action lines, or `Bot action rejected` / `turn stalled` errors.
 
 ### Join errors (local)
 
@@ -477,6 +479,7 @@ Solo practice             → Solo
 | Online transport | `src/client/multiplayer/colyseusRemoteClient.ts`, `src/server/dead-end-drive.room.ts` |
 | Lobby REST | `apps/game-server/src/lobby.controller.ts`, `lobby.service.ts` |
 | Bots (solo) | `src/client/bots/BotOrchestrator.ts`, `services/bot-ai/` |
+| Player turn HUD strip | `src/client/components/PlayerTurnStrip.tsx`, `src/client/lib/playerSeatLayout.ts` |
 | Engine | `packages/engine/src/turnOrchestrator.ts`, `gameInitializer.ts` |
 | RFC | `.context/rfc/rfc_005_colyseus_nest_transport.md`, `rfc_006_clean_architecture.md` |
 

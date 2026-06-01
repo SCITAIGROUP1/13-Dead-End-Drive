@@ -1,0 +1,43 @@
+Issue Type,External ID,Epic Link,Summary,Description,Priority,Status,Labels,Components,Fix Version,Story Points
+Epic,DED-E01,,DED-E01 Game rules engine (Phase 2),Pure-functional engine Phase 2.1-2.5 complete per system_state.md.,Low,Done,"done-legacy,role:dev",engine,v0.1-internal,
+Story,DED-101,DED-E01,DED-101 Spatial path validation moveCharacter,Path contiguity adjacency graph pipsUsed EngineError codes. moveCharacter.spec.ts.,Low,Done,"done-legacy,role:dev",engine,v0.1-internal,5
+Story,DED-102,DED-E01,DED-102 Trap auto-trigger and portrait cascade,evaluateTraps position-only. Portrait rotation on heir eliminated. trapEvaluator.spec.ts.,Low,Done,"done-legacy,role:dev",engine,v0.1-internal,5
+Story,DED-103,DED-E01,DED-103 Card play discriminated unions playCard,PLAY_CARD payload variants. playCard dispatch. Card validation RFC 003.,Low,Done,"done-legacy,role:dev",engine,v0.1-internal,5
+Story,DED-104,DED-E01,DED-104 Win conditions winCondition,HEIR_ESCAPED LAST_ALIVE DETECTIVE_ARRIVED. winCondition.spec.ts.,Low,Done,"done-legacy,role:dev",engine,v0.1-internal,5
+Story,DED-105,DED-E01,DED-105 Turn orchestrator pipeline,processTurn pipeline order guards apply evaluate. turnOrchestrator.spec.ts.,Low,Done,"done-legacy,role:dev",engine,v0.1-internal,5
+Story,DED-106,DED-E01,DED-106 BA Map FR-1 to FR-5 SRS to engine specs,Traceability in .context/srs.md to engine modules.,Low,Done,"done-legacy,role:ba",docs,v0.1-internal,3
+Story,DED-107,DED-E01,DED-107 QA Engine regression suite Vitest,Engine spec files moveCharacter trapEvaluator winCondition turnOrchestrator.,Low,Done,"done-legacy,role:qa",engine,v0.1-internal,5
+Story,DED-108,DED-E01,DED-108 TL Enforce pure engine and EngineError codes,No side effects in engine. EngineError SocketErrorCode only. RFC 001.,Low,Done,"done-legacy,role:tl",engine,v0.1-internal,3
+Epic,DED-E02,,DED-E02 Network and persistence (Phase 3),Transport layer 3.1-3.6. Supabase schema game_rooms player_connections.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,
+Story,DED-201,DED-E02,DED-201 Per-player state masking broadcastPipeline,filterStateForPlayer masks hands and rooting. broadcastPipeline.spec.ts.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,5
+Story,DED-202,DED-E02,DED-202 Idempotent event router,routePlayerEvent processedEventIds IDEMPOTENCY_CONFLICT. routePlayerEvent.spec.ts.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,3
+Story,DED-203,DED-E02,DED-203 Supabase game_rooms persistence,JSONB game_state room_code status. room-persistence.service. RFC 004.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,5
+Story,DED-204,DED-E02,DED-204 Local multiplayer cross-tab sync,LocalMultiplayerClient localStorage LocalRoomStore. playMode local.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,5
+Story,DED-205,DED-E02,DED-205 BA Document secret-card visibility rules,Owner sees own secrets. Death reveal exposedRooting. play_modes masking table.,Low,Done,"done-legacy,role:ba",docs,v0.1-internal,2
+Story,DED-206,DED-E02,DED-206 QA Masking and idempotency specs,broadcastPipeline.secret routePlayerEvent sessionManager specs.,Low,Done,"done-legacy,role:qa",network,v0.1-internal,3
+Story,DED-207,DED-E02,DED-207 TL RFC 004 persistence invariants,Sync write after action. Session wrapper idempotency not on GameState.,Low,Done,"done-legacy,role:tl",network,v0.1-internal,2
+Epic,DED-E03,,DED-E03 Client gameplay UI (Phase 4),React client 4.1-4.11. 2D canvas and 3D R3F. HUD widgets FX.,Low,Done,"done-legacy,role:dev",client,v0.1-internal,
+Story,DED-301,DED-E03,DED-301 2D canvas board and kinematics,GameBoard.ts kinematicsEngine pathfinding. GameBoard.spec.ts.,Low,Done,"done-legacy,role:dev",client,v0.1-internal,5
+Story,DED-302,DED-E03,DED-302 3D GRID_21X15 scene R3F,Scene3D mansion furniture dining table traps. boardVersion GRID_21X15.,Low,Done,"done-legacy,role:dev",client,v0.1-internal,8
+Story,DED-303,DED-E03,DED-303 HUD hand deck detective dice console,HandPanel DeckWidget DetectiveWidget DicePanel HUD3D estate console.,Low,Done,"done-legacy,role:dev",client,v0.1-internal,8
+Story,DED-304,DED-E03,DED-304 Trap FX audio confetti,GameFxController detectClientFxEvents gameAudio trap overlay.,Low,Done,"done-legacy,role:dev",client,v0.1-internal,5
+Story,DED-305,DED-E03,DED-305 Lobby and game over flows,LobbyScreen GameOverScreen mode-first solo local online.,Low,Done,"done-legacy,role:dev",client,v0.1-internal,5
+Story,DED-306,DED-E03,DED-306 QA React component specs HandPanel widgets,HandPanel DeckWidget DetectiveWidget HUD3DConsole happy-dom specs.,Low,Done,"done-legacy,role:qa",client,v0.1-internal,3
+Story,DED-307,DED-E03,DED-307 PM Playable demo criteria solo and local,Executive demo solo roll move trap win. Local two tabs.,Low,Done,"done-legacy,role:pm",docs,v0.1-internal,2
+Epic,DED-E04,,DED-E04 Solo bots and bot-ai service,Phase 4.10 solo vs bots. packages/game-logic and services/bot-ai.,Low,Done,"done-legacy,role:dev",bot-ai,v0.1-internal,
+Story,DED-401,DED-E04,DED-401 enumerateLegalActions and heuristic fallback,packages/game-logic heuristicFallback. legalActions.spec.ts.,Low,Done,"done-legacy,role:dev",bot-ai,v0.1-internal,5
+Story,DED-402,DED-E04,DED-402 Python POST v1 decide contract golden,FastAPI decide.py bot-api-contract.spec.ts test_golden_fixture.py.,Low,Done,"done-legacy,role:dev",bot-ai,v0.1-internal,5
+Story,DED-403,DED-E04,DED-403 BotOrchestrator solo turn loop,submitBotAction processTurn when activePlayerId is player-bot-*. botOrchestrator.spec.ts.,Low,Done,"done-legacy,role:dev",bot-ai,v0.1-internal,5
+Story,DED-404,DED-E04,DED-404 QA bot-api contract and orchestrator specs,contracts/bot-api-contract botOrchestrator startSoloVsBots.,Low,Done,"done-legacy,role:qa",bot-ai,v0.1-internal,3
+Story,DED-405,DED-E04,DED-405 BA Solo mode acceptance bot only on bot turn,Human moves on human turn. BotOrchestrator on bot turn. play_modes troubleshooting.,Low,Done,"done-legacy,role:ba",docs,v0.1-internal,2
+Epic,DED-E05,,DED-E05 Online transport Nest Colyseus (Phase 5),apps/game-server RFC 005 006. ColyseusRemoteClient OnlineSession.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,
+Story,DED-501,DED-E05,DED-501 apps game-server Nest Colyseus room,DeadEndDriveRoom Colyseus integration. Nest app.module.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,8
+Story,DED-502,DED-E05,DED-502 ColyseusRemoteClient and OnlineSession,Online playMode never calls processTurn locally. dispatchGameEvent.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,5
+Story,DED-503,DED-E05,DED-503 Lobby REST create join start,lobby.controller.ts lobby.service.ts room codes.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,5
+Story,DED-504,DED-E05,DED-504 GameActionService server-authoritative turns,Server applies processTurn. Bots choose never apply on server solo path.,Low,Done,"done-legacy,role:dev",network,v0.1-internal,5
+Story,DED-505,DED-E05,DED-505 TL RFC 005 006 package boundaries depcruise,@ded/* packages. lint:boundaries CI. GameSession dispatch.,Low,Done,"done-legacy,role:tl",infra,v0.1-internal,5
+Story,DED-506,DED-E05,DED-506 QA Server action and room persistence specs,game-action.service room-persistence.service specs.,Low,Done,"done-legacy,role:qa",network,v0.1-internal,3
+Story,DED-507,DED-E05,DED-507 BA Online vs local comparison doc,.context/play_modes.md executive comparison table.,Low,Done,"done-legacy,role:ba",docs,v0.1-internal,3
+Story,DED-803,DED-E08,DED-803 TL CI gate typecheck vitest bot-ai depcruise,.github/workflows/ci.yml npm run typecheck vitest lint:boundaries test:bot-ai.,Low,Done,"done-legacy,role:tl",infra,v0.1-internal,3
+Story,DED-908,DED-E09,DED-908 TL Definition of Done vitest and boundaries,Vitest 0 failures. dependency-cruiser clean. No any in engine.,Low,Done,"done-legacy,role:tl",client,v0.1-internal,2
+Story,DED-1002,DED-E10,DED-1002 BA Excluded scope sign-off 1313 secret passages,Explicit out of scope 1313 sequel secret passages trap draw squares. board_rules.,Low,Done,"done-legacy,role:ba",docs,v0.1-internal,2

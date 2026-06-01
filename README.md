@@ -22,6 +22,8 @@ npm run dev
 
 Open the lobby, enter your name, choose **1–3 AI opponents** and difficulty, then **Start solo game**.
 
+**How to play (rules):** [docs/HOW_TO_PLAY.md](docs/HOW_TO_PLAY.md) — full rules in plain language. Advanced / optional rules are [planned](.context/rfc/rfc_007_advanced_rule_engine.md) but not in the app yet.
+
 ## Run everything with Docker
 
 Runs the **client**, **game-server**, and **bot-ai** together. No local Node or Python required.

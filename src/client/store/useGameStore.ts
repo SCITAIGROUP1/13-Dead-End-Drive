@@ -38,6 +38,7 @@ import {
   createHumanPlayerId,
   buildSoloPlayerNames,
   DEFAULT_BOT_DIFFICULTY,
+  isBotPlayerId,
 } from '../bots/botRegistry.js';
 import { botOrchestrator }        from '../bots/BotOrchestrator.js';
 
@@ -144,7 +145,11 @@ export const useGameStore = create<GameStoreState & GameStoreActions>()(
       const { gameState } = get();
       if (!gameState) return;
       const next = commitPlayerAction(get, set, gameState, event);
-      if (next) get().syncServerState(next);
+      if (next) {
+        get().syncServerState(next);
+      } else {
+        get().addLog(`Bot action rejected (${event.type}).`, 'danger');
+      }
     },
 
     syncServerState: (newState) => {
@@ -162,12 +167,20 @@ export const useGameStore = create<GameStoreState & GameStoreActions>()(
 
       if (
         prev &&
-        get().playMode === 'solo' &&
         prev.activePlayerId !== fixed.activePlayerId &&
         fixed.subPhase === 'AWAITING_ROLL'
       ) {
-        const name = fixed.players[fixed.activePlayerId]?.displayName ?? 'Next player';
-        get().addLog(`${name}'s turn — roll dice.`, 'info');
+        const activeId = fixed.activePlayerId;
+        const name = fixed.players[activeId]?.displayName ?? 'Next player';
+        const { playMode: mode, localPlayerId: seatId } = get();
+        if (activeId === seatId) {
+          get().addLog('Your turn — roll dice.', 'success');
+          ui().showToast('Your turn — roll dice.', 'info');
+        } else if (mode === 'solo' && isBotPlayerId(activeId)) {
+          get().addLog(`${name} is playing…`, 'info');
+        } else {
+          get().addLog(`${name}'s turn — roll dice.`, 'info');
+        }
       }
 
       if (prev) {

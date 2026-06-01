@@ -32,6 +32,18 @@ export default defineConfig({
   preview: {
     port: 4173,
     open: true,
+    proxy: {
+      '/bot-api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/bot-api/, ''),
+      },
+      '/lobby-api': {
+        target: 'http://localhost:2567',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/lobby-api/, ''),
+      },
+    },
   },
   resolve: {
     alias: {

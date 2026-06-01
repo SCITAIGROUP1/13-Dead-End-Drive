@@ -85,7 +85,10 @@ export class BotOrchestrator {
         const botId = current.activePlayerId;
         const legal = enumerateLegalActions(current, botId);
         if (legal.length === 0) {
-          get().addLog('Bot has no legal actions — turn stalled.', 'danger');
+          get().addLog(
+            `Bot has no legal actions — turn stalled (subPhase: ${current.subPhase}).`,
+            'danger',
+          );
           break;
         }
 
@@ -125,8 +128,21 @@ export class BotOrchestrator {
         const event = buildSocketEvent(chosen.event, current.gameId, botId);
         const botName = current.players[botId]?.displayName ?? 'Bot';
 
+        const beforeUpdatedAt = current.updatedAt;
+
         try {
           get().submitBotAction(event);
+          const afterAction = get().gameState;
+          if (!afterAction || afterAction.updatedAt === beforeUpdatedAt) {
+            if (chosen.kind === 'CHOOSE_MOVEMENT_PLAN' || chosen.kind === 'CHANGE_PORTRAIT') {
+              continue;
+            }
+            get().addLog(
+              `${botName}: action did not apply (${chosen.kind}, subPhase: ${current.subPhase}).`,
+              'danger',
+            );
+            break;
+          }
           get().addLog(`${botName}: ${chosen.summary} (${rationale})`, 'info');
         } catch (err) {
           const msg =

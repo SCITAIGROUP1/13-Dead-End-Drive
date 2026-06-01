@@ -6,6 +6,7 @@ import type { GameState } from '@ded/types/game-state.js';
 import type { BotActionOption, BotEventTemplate } from '@ded/types/bot-api.js';
 import type { CharacterId, CellId, GameId, MovementPlan, PipCount, PlayerId } from '@ded/types/enums.js';
 import { cardMatchesTrap } from '@ded/engine/cardDeck.js';
+import { anyAlivePawnOnDiningChair } from '@ded/engine/chairPhase.js';
 import {
   findValidPath,
   getReachableCells,
@@ -14,6 +15,13 @@ import {
 
 function makeOptionId(kind: string, payload: unknown): string {
   return `${kind}:${JSON.stringify(payload)}`;
+}
+
+function portraitAlreadyRotatedOnDoublesThisTurn(state: GameState): boolean {
+  return (
+    state.activePortrait.lastChangedOnTurn === state.turnNumber &&
+    state.activePortrait.lastChangedReason === 'DOUBLES_ROLL'
+  );
 }
 
 function option(
@@ -57,7 +65,9 @@ function enumerateMovePawns(
   const exclude =
     state.subPhase === 'SECOND_MOVE' ? state.firstMoveCharacterId : null;
 
+  const chairPhase = anyAlivePawnOnDiningChair(state);
   const usingCombinedDice = !!(
+    !chairPhase &&
     state.subPhase === 'FIRST_MOVE' &&
     state.movementPlan === 'COMBINED' &&
     state.movesUsedThisTurn === 0 &&
@@ -224,7 +234,7 @@ export function enumerateLegalActions(
     state.movesUsedThisTurn === 0 &&
     state.lastDiceRoll
   ) {
-    if (state.lastDiceRoll.isDoubles) {
+    if (state.lastDiceRoll.isDoubles && !portraitAlreadyRotatedOnDoublesThisTurn(state)) {
       actions.push(
         option('CHANGE_PORTRAIT', 'Rotate portrait on doubles', {
           type: 'CHANGE_PORTRAIT',
@@ -234,9 +244,11 @@ export function enumerateLegalActions(
       );
     }
 
-    const plans: MovementPlan[] = [];
-    if (state.movementPlan !== 'COMBINED') plans.push('COMBINED');
-    if (state.movementPlan !== 'SPLIT') plans.push('SPLIT');
+    // After roll the default is SPLIT; COMBINED only when every pawn has left the chairs.
+    const plans: MovementPlan[] =
+      state.movementPlan === 'SPLIT' && !anyAlivePawnOnDiningChair(state)
+        ? ['COMBINED']
+        : [];
 
     for (const plan of plans) {
       actions.push(

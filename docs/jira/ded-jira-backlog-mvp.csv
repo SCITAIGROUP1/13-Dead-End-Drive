@@ -1,0 +1,58 @@
+Issue Type,External ID,Epic Link,Summary,Description,Priority,Status,Labels,Components,Fix Version,Story Points
+Epic,DED-E01,,DED-E01 Game rules engine (Phase 2),Core engine complete. moveCharacter trapEvaluator playCard winCondition turnOrchestrator. Stories in ded-jira-backlog-historical.csv.,Low,Done,"done-legacy,mvp-v1",engine,v0.1-internal,
+Epic,DED-E02,,DED-E02 Network and persistence (Phase 3),Masking idempotency Supabase local multiplayer. Stories in historical CSV.,Low,Done,"done-legacy,mvp-v1",network,v0.1-internal,
+Epic,DED-E03,,DED-E03 Client gameplay UI (Phase 4),2D 3D HUD FX lobby game over. Stories in historical CSV.,Low,Done,"done-legacy,mvp-v1",client,v0.1-internal,
+Epic,DED-E04,,DED-E04 Solo bots and bot-ai service,BotOrchestrator legalActions Python decide endpoint. Stories in historical CSV.,Low,Done,"done-legacy,mvp-v1",bot-ai,v0.1-internal,
+Epic,DED-E05,,DED-E05 Online transport Nest Colyseus (Phase 5),game-server ColyseusRemoteClient OnlineSession lobby REST. Stories in historical CSV.,Low,Done,"done-legacy,mvp-v1",network,v0.1-internal,
+Epic,DED-E06,,DED-E06 Player UX polish (seats bots HUD),3D player turn seats around dining table. Bot orchestrator hardening. HUD 2D fallback. Aligns with playerSeatLayout and PlayerTableSeats3D.,Medium,In Progress,"mvp-v1,role:dev",client,v1.0-mvp-beta,
+Epic,DED-E07,,DED-E07 Auth and production security,Supabase JWT on lobby REST and Colyseus onAuth. AUTH_REQUIRED=true production path. RFC 006 Auth v2. MVP blocker.,Highest,To Do,"mvp-v1,role:tl",infra,v1.0-mvp-beta,
+Epic,DED-E08,,DED-E08 Production deploy and operations,Docker/hosting runbook. Env matrix VITE_COLYSEUS_URL Supabase. Health checks monitoring. Staging and prod smoke. MVP blocker.,Highest,To Do,"mvp-v1,role:dev",infra,v1.0-mvp-beta,
+Epic,DED-E09,,DED-E09 QA and release readiness,MVP test plans solo local online. Rules fidelity matrix. UAT sign-off. Accessibility and mobile smoke. MVP gate.,Highest,To Do,"mvp-v1,role:qa",client,v1.0-mvp-beta,
+Epic,DED-E10,,DED-E10 BA requirements and rules traceability,SRS engine traceability. Play modes operator guide. MVP scope in/out doc. Ongoing BA work.,High,In Progress,"mvp-v1,role:ba",docs,v1.0-mvp-beta,
+Epic,DED-E11,,DED-E11 PM product legal and launch,MVP metrics. IP legal review. Beta invite. Launch checklist. UAT coordination.,Highest,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,
+Epic,DED-E12,,DED-E12 Post-MVP roadmap,Deferred features after v1.0-beta. Label post-v1. Not in MVP critical path.,Low,Backlog,post-v1,client,v1.1,
+Story,DED-601,DED-E06,DED-601 playerSeatLayout clockwise 2-4 seats,Pure module playerSeatLayout.ts. Clockwise seats from turnOrder. Table-centered world positions. Vitest playerSeatLayout.spec.ts.,Medium,Done,"mvp-v1,role:dev",client,v1.0-mvp-beta,5
+Story,DED-602,DED-E06,DED-602 PlayerTableSeats3D and PlayerTurnRing2D,3D seats in Scene3D. 2D HUD semicircle when is3DMode false. Active player glow and labels.,Medium,Done,"mvp-v1,role:dev",client,v1.0-mvp-beta,8
+Story,DED-603,DED-E06,DED-603 Harden BotOrchestrator no-op detection,Verify gameState advanced after submitBotAction. Log bot action did not apply. Turn pass messaging.,Medium,Done,"mvp-v1,role:dev",bot-ai,v1.0-mvp-beta,5
+Story,DED-604,DED-E06,DED-604 BA Update play_modes bot seat docs,Troubleshooting bots never move vs pawn dining chairs. Ref .context/play_modes.md.,Medium,In Progress,"mvp-v1,role:ba",docs,v1.0-mvp-beta,2
+Story,DED-605,DED-E06,DED-605 QA playerSeatLayout and botOrchestrator specs,Vitest green. Bot completes ROLL_DICE when active. playerSeatLayout 2/3/4 players.,Medium,In Review,"mvp-v1,role:qa",client,v1.0-mvp-beta,3
+Story,DED-606,DED-E06,DED-606 PM Release note player seats vs pawn chairs,Communicate 3D player seat ring vs twelve pawn dining chairs J5-L9.,Low,Ready,"mvp-v1,role:pm",docs,v1.0-mvp-beta,1
+Story,DED-607,DED-E06,DED-607 TL Sign-off turnOrder UI single source,playerSeatLayout is sole layout for 3D seats and 2D ring. No duplicate turn order logic.,Low,Ready,"mvp-v1,role:tl",client,v1.0-mvp-beta,2
+Story,DED-701,DED-E07,DED-701 BA Auth user stories guest vs account,As a player I join online with Supabase account or controlled guest when AUTH_REQUIRED=false in dev.,Highest,Ready,"mvp-v1,role:ba",docs,v1.0-mvp-beta,3
+Story,DED-702,DED-E07,DED-702 Dev Wire Supabase JWT lobby and Colyseus onAuth,Implement JWT validation per RFC 006. Ref apps/game-server/src/auth.guard.ts and Colyseus onAuth.,Highest,To Do,"mvp-v1,role:dev",network,v1.0-mvp-beta,8
+Story,DED-703,DED-E07,DED-703 Dev AUTH_REQUIRED true production path,Fail-fast env when NODE_ENV=production. Require SUPABASE_URL and service role key. Guest fallback dev only.,Highest,To Do,"mvp-v1,role:dev",infra,v1.0-mvp-beta,5
+Story,DED-704,DED-E07,DED-704 TL Threat model rate limit CORS room hijack,Document threats: rate-limit.guard CORS_ORIGINS room code guessing. Mitigations for MVP.,Highest,To Do,"mvp-v1,role:tl",infra,v1.0-mvp-beta,5
+Story,DED-705,DED-E07,DED-705 QA Negative JWT tests,Expired missing malformed wrong-audience tokens return 401 on lobby and Colyseus join.,Highest,To Do,"mvp-v1,role:qa",network,v1.0-mvp-beta,5
+Story,DED-706,DED-E07,DED-706 PM Privacy policy game_rooms data retention,Privacy policy for JSONB game_state and player_connections. Retention and deletion policy.,Highest,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,3
+Story,DED-801,DED-E08,DED-801 Dev Production Docker hosting runbook,Document docker compose production or PaaS deploy. VITE_COLYSEUS_URL LAN and public URLs.,Highest,To Do,"mvp-v1,role:dev",infra,v1.0-mvp-beta,5
+Story,DED-802,DED-E08,DED-802 Dev Env matrix client and game-server,Matrix for .env.example .env.docker.example VITE_* SUPABASE_* AUTH_REQUIRED BOT_AI_URL CORS_ORIGINS.,Highest,To Do,"mvp-v1,role:dev",infra,v1.0-mvp-beta,3
+Story,DED-804,DED-E08,DED-804 Dev Health checks lobby-api monitoring,Expose and document health endpoints. Log aggregation recommendation for staging prod.,Highest,To Do,"mvp-v1,role:dev",infra,v1.0-mvp-beta,3
+Story,DED-805,DED-E08,DED-805 QA Deployed stack smoke script,Automate or checklist: solo local online on staging. Health lobby Colyseus bot-ai.,Highest,To Do,"mvp-v1,role:qa",infra,v1.0-mvp-beta,5
+Story,DED-806,DED-E08,DED-806 PM MVP launch checklist and rollback plan,Pre-launch checklist. Rollback steps for bad deploy. Incident contacts.,Highest,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,3
+Story,DED-901,DED-E09,DED-901 QA Test plan solo 1-3 bots all difficulties,Solo playMode. Bot difficulties. Heuristic fallback when bot-ai down. Full game to GAME_OVER.,Highest,Ready,"mvp-v1,role:qa",client,v1.0-mvp-beta,5
+Story,DED-902,DED-E09,DED-902 QA Test plan local 2-4 tabs chair phase traps,Local multiplayer cross-tab. Opening chair phase. Trap play draw decline. Masking per tab.,Highest,Ready,"mvp-v1,role:qa",client,v1.0-mvp-beta,5
+Story,DED-903,DED-E09,DED-903 QA Test plan online 2-4 devices disconnect,Online Colyseus. Join errors ROOM_NOT_FOUND GAME_ALREADY_STARTED. Mid-game disconnect behavior.,Highest,Ready,"mvp-v1,role:qa",network,v1.0-mvp-beta,5
+Story,DED-904,DED-E09,DED-904 QA Rules fidelity matrix board_rules,Verify all rows in .context/board_rules_13_ded.md for 2-3-4 players. Sign-off matrix.,Highest,Ready,"mvp-v1,role:qa",engine,v1.0-mvp-beta,8
+Story,DED-905,DED-E09,DED-905 QA 2-player secret rooting scenarios,twoPlayerSecretCard specs and manual playtest for secret rooting visibility.,Highest,Ready,"mvp-v1,role:qa",engine,v1.0-mvp-beta,3
+Story,DED-906,DED-E09,DED-906 QA Accessibility pass HUD keyboard contrast,Keyboard navigation dice panel hand. Contrast estate console. Screen reader labels where feasible.,Medium,To Do,"mvp-v1,role:qa",client,v1.0-mvp-beta,5
+Story,DED-907,DED-E09,DED-907 QA Mobile touch layout smoke,Lobby and HUD on mobile viewport. Touch targets dice and hand cards.,Medium,To Do,"mvp-v1,role:qa",client,v1.0-mvp-beta,3
+Story,DED-909,DED-E09,DED-909 PM UAT sign-off template known issues,UAT template with severity blocker major minor. Known issues list for beta.,Highest,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,2
+Story,DED-1001,DED-E10,DED-1001 BA Maintain SRS engine traceability matrix,Map FR-1 through FR-5 in .context/srs.md to engine specs and tests. Keep current.,High,In Progress,"mvp-v1,role:ba",docs,v1.0-mvp-beta,5
+Story,DED-1003,DED-E10,DED-1003 BA Play modes operator guide for support,Deep-dive play_modes.md for support staff. Troubleshooting local vs online.,High,In Progress,"mvp-v1,role:ba",docs,v1.0-mvp-beta,3
+Story,DED-1004,DED-E10,DED-1004 BA MVP scope doc in out v1.0-beta,Explicit in-scope: solo local online auth deploy. Out: 1313 secret passages online bots v1.,Highest,Ready,"mvp-v1,role:ba",docs,v1.0-mvp-beta,3
+Story,DED-1005,DED-E10,DED-1005 PM Stakeholder demo script 15 min walkthrough,Lobby solo local online. One full trap resolution. Win modal. Estate console.,Medium,Ready,"mvp-v1,role:pm",docs,v1.0-mvp-beta,2
+Story,DED-1101,DED-E11,DED-1101 PM MVP success metrics DAU session crash-free,Define beta metrics: sessions per day avg length crash-free rate feedback volume.,High,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,2
+Story,DED-1102,DED-E11,DED-1102 PM IP legal review Hasbro adaptation,Independent adaptation disclaimer. Counsel sign-off before public beta. Not 1313 sequel.,Highest,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,5
+Story,DED-1103,DED-E11,DED-1103 PM Beta invite and feedback channel,Beta invite list. Discord form or GitHub issues for feedback.,High,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,2
+Story,DED-1104,DED-E11,DED-1104 PM Update project_proposal Phase 5 reality,Sync .context/project_proposal.md with system_state Phase 5 Colyseus online complete.,Medium,To Do,"mvp-v1,role:pm",docs,v1.0-mvp-beta,2
+Story,DED-1105,DED-E11,DED-1105 TL Technical debt register post-v1,RFC 006 non-goals. E12 items. Debounced Supabase flush. apps/client split.,Medium,Ready,"mvp-v1,role:tl",docs,v1.0-mvp-beta,3
+Story,DED-1201,DED-E12,DED-1201 Online bot seats BotTurnCoordinator lobby,Server-side bot turns for online. BotTurnCoordinator BOT_AI_URL. Not in lobby UI v1.,Low,Backlog,"post-v1,role:dev",bot-ai,v1.1,13
+Story,DED-1202,DED-E12,DED-1202 Reconnect hardening hand projection E2E,Phase 3.6 reconnect resync filtered GameState and hand. E2E coverage.,Low,Backlog,"post-v1,role:dev",network,v1.1,8
+Story,DED-1203,DED-E12,DED-1203 Tutorial first-time UX,Onboarding flow for rules movement traps portrait. BA scripts.,Low,Backlog,"post-v1,role:ba",client,v1.1,8
+Story,DED-1204,DED-E12,DED-1204 Spectator and replay,Read-only observers. Event log replay from persisted state.,Low,Backlog,"post-v1,role:dev",client,v1.1,13
+Story,DED-1205,DED-E12,DED-1205 Accounts leaderboards tournaments,Persistent profiles stats bracketed play.,Low,Backlog,"post-v1,role:pm",docs,v1.1,21
+Story,DED-1206,DED-E12,DED-1206 GDD deck extensions portrait SP cards,Optional portrait change and secret passage as deck cards if GDD extended.,Low,Backlog,"post-v1,role:ba",engine,v1.1,13
+Story,DED-1207,DED-E12,DED-1207 PWA app store distribution,Installable web app or store packaging.,Low,Backlog,"post-v1,role:pm",infra,v1.1,8
+Story,DED-1208,DED-E12,DED-1208 apps client Vite extraction RFC 006,Optional apps/client split from src/client.,Low,Backlog,"post-v1,role:tl",client,v1.1,8
+Story,DED-1209,DED-E12,DED-1209 LLM bot strategy bot-ai llm.py,Wire LLM strategy in services/bot-ai when API keys available.,Low,Backlog,"post-v1,role:dev",bot-ai,v1.1,8
+Story,DED-1210,DED-E12,DED-1210 E2E Playwright suite,Browser E2E for lobby solo critical path. CI job.,Low,Backlog,"post-v1,role:qa",client,v1.1,13

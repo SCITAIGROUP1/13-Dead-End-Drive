@@ -3,8 +3,8 @@
  * Core win condition evaluation engine.
  *
  * Victory Conditions:
- *   1. HEIR_ESCAPED: A character shown in the fireplace portrait reaches the EXIT_DOOR cell
- *      alive and is controlled by a player.
+ *   1. HEIR_ESCAPED: The active portrait guest (featured heir) reaches the EXIT_DOOR cell
+ *      alive; the player holding that guest's rooting card wins.
  *   2. DETECTIVE_ARRIVED: The detective pawn reaches the end of the track.
  *      The player secretly holding the character currently shown in the portrait wins.
  *   3. LAST_ALIVE: Only one player still has at least one alive character they are
@@ -36,7 +36,7 @@ export function checkWinCondition(state: GameState): WinResolution {
   }
 
   // ── 1. HEIR_ESCAPED ────────────────────────────────────────────────────────
-  // The active portrait heir is ALIVE at the EXIT_DOOR cell
+  // Portrait guest only (not other guests at exit); winner = rooting-card holder.
   const currentHeirId = state.activePortrait.currentHeirId;
   const heirChar = currentHeirId === 'AUNT_AGATHA' ? undefined : state.characters[currentHeirId];
   
